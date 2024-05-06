@@ -2,10 +2,10 @@ import React from "react";
 import { useEffect,useState } from "react";
 import axios from "axios";
 import MovieComponent from "./movieComponent";
-
+import LoadingSpinner from "../page/LoadingSpinner";
 const NowPlayingPage = ()=>{
     const [moviedata,setmoviedata] = useState([]);
-
+    const [loadingState , setLoadingState] = useState(true);
     useEffect(()=>{
         const getMovieData = async ()=>{
             try{
@@ -24,6 +24,7 @@ const NowPlayingPage = ()=>{
                     }
                 );
                 setmoviedata(res.data.results);
+                setLoadingState(false);
             }
             catch(error){
                 console.log(error);
@@ -32,7 +33,7 @@ const NowPlayingPage = ()=>{
         getMovieData();
     });
 
-    return <MovieComponent movieData={moviedata}/>;
+    return loadingState?<LoadingSpinner/>:<MovieComponent movieData={moviedata}/>;
 
 };
 

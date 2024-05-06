@@ -41,7 +41,7 @@ const Header = ()=>{
         <>
         <Container>
             <LeftContainer>
-                <StyleLink to="/r">UMC Movie</StyleLink>
+                <StyleLink to="/">UMC Movie</StyleLink>
             </LeftContainer>
             <RightContainer>
                 <StyleLink to="/">회원가입</StyleLink>

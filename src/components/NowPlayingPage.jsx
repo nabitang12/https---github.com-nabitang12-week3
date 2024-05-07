@@ -2,7 +2,21 @@ import React from "react";
 import { useEffect,useState } from "react";
 import axios from "axios";
 import MovieComponent from "./movieComponent";
-import LoadingSpinner from "../page/LoadingSpinner";
+import styled from "styled-components";
+import { ClipLoader } from "react-spinners";
+
+const LoadingBody = styled.div`
+    background-color:navy;
+    height:100%;
+    width:100%;
+`;
+
+const LoadingBackground = styled.div`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+`;
+
 const NowPlayingPage = ()=>{
     const [moviedata,setmoviedata] = useState([]);
     const [loadingState , setLoadingState] = useState(true);
@@ -33,8 +47,21 @@ const NowPlayingPage = ()=>{
         getMovieData();
     });
 
-    return loadingState?<LoadingSpinner/>:<MovieComponent movieData={moviedata}/>;
-
+    return (
+        <LoadingBody>
+            
+          {loadingState ? (
+            <LoadingBackground>
+            <ClipLoader color="#E50915"
+            loading={loadingState}
+            size = {150}/>
+            </LoadingBackground>
+          ) : (
+            <MovieComponent movieData={moviedata} />
+          )}
+          ;
+        </LoadingBody>
+      );
 };
 
 export default NowPlayingPage;

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
 import MainPage from './page/MainPage'
 import NowPlayingPage from './components/NowPlayingPage'
@@ -6,7 +5,6 @@ import PopularPage from './components/PopularPage'
 import TopRatedPage from './components/TopRatedPage'
 import UpComingPage from './components/UpComingPage'
 import Layout from './headers/Layout'
-import MovieComponent from './components/movieComponent'
 import './App.css'
 
 function App() {

@@ -1,6 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Container = styled.div`
     width:100%;
@@ -13,7 +13,15 @@ const Container = styled.div`
     z-index=1;
     
 `;
-
+const LoginBackground = styled.div`
+    color:yellow;
+    cursor:pointer;
+    padding:15px;
+    &:hover{
+        transform:scale(1.1);
+        transition-duration:0.5s;
+    }
+`;
 const LeftContainer = styled.div`
     display:flex;
     align-items:center;
@@ -37,6 +45,12 @@ const StyleLink = styled(Link)`
     }
 `;
 const Header = ()=>{
+    const [isLoggedin,setisLoggedin] = useState(false);
+
+    const handlelogin = ()=>{
+        setisLoggedin(!isLoggedin);
+    };
+    
     return(
         <>
         <Container>
@@ -44,7 +58,9 @@ const Header = ()=>{
                 <StyleLink to="/">UMC Movie</StyleLink>
             </LeftContainer>
             <RightContainer>
-                <StyleLink to="/">회원가입</StyleLink>
+                <LoginBackground onClick={handlelogin}>
+                    {isLoggedin?"로그아웃":"로그인"}
+                </LoginBackground>
                 <StyleLink to="/Popular">Popular</StyleLink>
                 <StyleLink to="/nowPlaying">Now Playing</StyleLink>
                 <StyleLink to="/TopRated">Top Rated</StyleLink>

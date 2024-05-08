@@ -1,17 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
-const Background = styled.div`
-    width:100%;
-    background-color:navy;
-    padding-top:70px;
-    padding-left:50px;
-    padding-right:50px;
-`;
 
 const MovieContainer = styled.div`
     display:grid;
     grid-template-columns: repeat(4,1fr);
     grid-gap:20px;
+    padding:100px 40px;
 `;
 
 const ContentContainer = styled.div`
@@ -54,11 +48,26 @@ const MovieData = styled.div`
 `;
 
 const MovieComponent =({movieData})=>{
+
+    const navigate = useNavigate();
+
+    const handleClick = (movie)=>{
+        navigate(`/movie/${movie.title}`,{
+            state:{
+                poster_path:movie.poster_path,
+                title:movie.title,
+                overview:movie.overview,
+                vote_average:movie.vote_average,
+                release_date:movie.release_date,
+                backdrop_path:movie.backdrop_path,
+            },
+        });
+    };
+    
     return(
-        <Background>
             <MovieContainer>
                 {movieData.map((Movie,index)=>(
-                    <ContentContainer key={index}>
+                    <ContentContainer key={index} onClick={()=>handleClick(Movie)}>
                         <div>
                             <MovieOverview className="movie-overview">
                                 <h2>{Movie.title}</h2>
@@ -82,7 +91,6 @@ const MovieComponent =({movieData})=>{
                 )
             )}
             </MovieContainer>
-        </Background>
     );
 };
 

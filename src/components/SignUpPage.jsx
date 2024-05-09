@@ -40,19 +40,22 @@ const SignUpButton = styled.button`
 `;
 const SignUpPage = ()=>{
     const [text,setText] = useState('');
-
-    const onChange = (e)=>{
-        setText(e.target.value);
-    }
+    const [form,setForm] = useState({
+        name:'',
+        age:'',
+        email:'',
+        password:'',
+        passwordConfirm:'',
+    });
     return(
         <Background>
             <InputBackground>
             <SignUpTitle>회원가입 페이지</SignUpTitle>
-            <SignUpInput onChange={onChange} value={text} placeholder="이름을 입력해주세요"/>
-            <SignUpInput onChange={onChange} value={text} placeholder="이메일을 입력해주세요"/>
-            <SignUpInput onChange={onChange} value={text} placeholder="나이를 입력해주세요"/>
-            <SignUpInput onChange={onChange} value={text} placeholder="비밀번호를 입력해주세요"/>
-            <SignUpInput onChange={onChange} value={text} placeholder="비밀번호 확인"/>
+            <SignUpInput onChange={e=>setForm({...form,name:e.target.value})} value={form.name} placeholder="이름을 입력해주세요"/>
+            <SignUpInput onChange={e=>setForm({...form,email:e.target.value})} value={form.email} placeholder="이메일을 입력해주세요"/>
+            <SignUpInput onChange={e=>setForm({...form,age:e.target.value})} value={form.age} placeholder="나이를 입력해주세요"/>
+            <SignUpInput onChange={e=>setForm({...form,password:e.target.value})} value={form.password} placeholder="비밀번호를 입력해주세요"/>
+            <SignUpInput onChange={e=>setForm({...form,passwordConfirm:e.target.value})} value={form.passwordConfirm} placeholder="비밀번호 확인"/>
             <SignUpButton>제출하기</SignUpButton>
             </InputBackground>
         </Background>

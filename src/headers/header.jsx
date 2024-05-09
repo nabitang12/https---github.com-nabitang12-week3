@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link ,useLocation} from "react-router-dom";
 import { useState } from "react";
 
 const Container = styled.div`
@@ -14,11 +14,10 @@ const Container = styled.div`
     
 `;
 const LoginBackground = styled.div`
-    color:yellow;
+    color:white;
     cursor:pointer;
-    padding:15px;
     &:hover{
-        transform:scale(1.1);
+        transform:scale(1.2);
         transition-duration:0.5s;
     }
 `;
@@ -36,7 +35,7 @@ const RightContainer = styled.div`
 const StyleLink = styled(Link)`
     text-decoration:none;
     padding:15px;
-    color:white;
+    color:${({active})=>(active?"yellow":"white")};
 
     &:hover{
         transform :scale(1.1);
@@ -46,11 +45,8 @@ const StyleLink = styled(Link)`
 `;
 const Header = ()=>{
     const [isLoggedin,setisLoggedin] = useState(false);
+    const location = useLocation();
 
-    const handlelogin = ()=>{
-        setisLoggedin(!isLoggedin);
-    };
-    
     return(
         <>
         <Container>
@@ -58,8 +54,8 @@ const Header = ()=>{
                 <StyleLink to="/">UMC Movie</StyleLink>
             </LeftContainer>
             <RightContainer>
-                <LoginBackground onClick={handlelogin}>
-                    {isLoggedin?"로그아웃":"로그인"}
+                <LoginBackground>
+                    <StyleLink to="/signup" active={location.pathname=="/signup"}>회원가입</StyleLink>
                 </LoginBackground>
                 <StyleLink to="/Popular">Popular</StyleLink>
                 <StyleLink to="/nowPlaying">Now Playing</StyleLink>

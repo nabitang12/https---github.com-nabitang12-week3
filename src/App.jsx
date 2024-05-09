@@ -6,6 +6,7 @@ import TopRatedPage from './components/TopRatedPage'
 import UpComingPage from './components/UpComingPage'
 import MovieDetailPage from './components/MovieDetailPage'
 import NotFoundPage from './components/NotFoundPage'
+import SignUpPage from './components/SignUpPage'
 import Layout from './headers/Layout'
 import './App.css'
 
@@ -19,7 +20,7 @@ function App() {
                 <Route path="/Popular" element={<PopularPage />} />
                 <Route path="/TopRated" element={<TopRatedPage />} />
                 <Route path="/Upcoming" element={<UpComingPage />} />
-                
+                <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/movie/:title" element={<MovieDetailPage/>} />
               </Route>
               <Route path="*" element={<NotFoundPage/>} />

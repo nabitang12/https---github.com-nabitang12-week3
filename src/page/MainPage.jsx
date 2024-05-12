@@ -8,7 +8,7 @@ const WelcomeContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50%;
+    height: 15%;
     width: 100%;
     background-color: black;
     color: white;
@@ -18,7 +18,7 @@ const WelcomeContainer = styled.div`
 
 const FindContainer = styled.div`
     width: 100%;
-    height: 50%;
+    height: 85%;
     display: flex;
     text-align: center;
     padding-top:50px;
@@ -48,7 +48,7 @@ const SearchButton = styled.div`
 const MainPage = ()=>{
     return(
         <Container>
-        <WelcomeContainer>환영합니다</WelcomeContainer>
+        <WelcomeContainer></WelcomeContainer>
         <FindContainer>
             <p>Find Your movies !</p>
             <SearchBarContainer>

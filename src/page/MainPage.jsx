@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import MovieSearchPage from "../components/MovieSearchPage";
+
 
 const Container = styled.div`
     height: 100%;
@@ -45,7 +47,15 @@ const SearchButton = styled.div`
     cursor:pointer;
     font-size:15px;
 `;
+
 const MainPage = ()=>{
+    const [keyword,setkeyword] = useState("");
+
+    const handleChange = (event)=>{
+        setkeyword(event.target.value);
+    }
+
+    
     return(
         <Container>
         <WelcomeContainer></WelcomeContainer>
@@ -53,9 +63,12 @@ const MainPage = ()=>{
             <p>Find Your movies !</p>
             <SearchBarContainer>
             <SearchInput type = "text"
-            placeholder="영화 제목을 입력해주세요"/>
+            placeholder="영화 제목을 입력해주세요"
+            onChange={handleChange}
+            />
             <SearchButton>검색</SearchButton>
             </SearchBarContainer>
+            {keyword.trim()!==""?<MovieSearchPage keyword={keyword}/>:null}
         </FindContainer>
         </Container>
     );

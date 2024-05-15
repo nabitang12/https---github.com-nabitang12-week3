@@ -6,29 +6,56 @@ const SearchBackground = styled.div`
   width: 70%;
   height: 70%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 0px;
-  border-radius: 15px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
   overflow-y: scroll;
   margin: 0 auto;
+  padding: 100px 40px;
 `;
 
-const SearchResult = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  cursor: pointer;
+const ContentContainer = styled.div`
+  background-color: mediumpurple;
+  position: relative;
+
+  &:hover .movie-poster-container {
+    opacity: 0.3;
+  }
+`;
+
+const MovieOverview = styled.div`
+  position: absolute;
+  color: white;
+  display: none;
+  padding: 20px;
+  z-index: 999;
+
+  word-wrap: break-word;
+
+  ${ContentContainer}:hover & {
+    display: block;
+  }
 `;
 
 const PosterImage = styled.img`
-  width: 300px;
-  height: 400px;
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  z-index: 1;
 `;
 
 const MovieTitle = styled.div`
   font-size: 16px;
   color: white;
+`;
+const MovieDescription = styled.div`
+  color: white;
+`;
+const MovieData = styled.div`
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 50px;
 `;
 
 const MovieSearchComponent = ({ movieData }) => {
@@ -50,12 +77,25 @@ const MovieSearchComponent = ({ movieData }) => {
   return (
     <SearchBackground>
       {movieData.map((movie) => (
-        <SearchResult key={movie.id} onClick={() => handleClick(movie)}>
-          <PosterImage
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-          />
-          <MovieTitle>{movie.title}</MovieTitle>
-        </SearchResult>
+        <ContentContainer key={movie.id} onClick={() => handleClick(movie)}>
+          <div>
+            <MovieOverview className="movie-overview">
+              <MovieTitle>{movie.title}</MovieTitle>
+              <MovieDescription>{movie.overview}</MovieDescription>
+            </MovieOverview>
+          </div>
+
+          <div className="movie-poster-container">
+            <PosterImage
+              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              className="movie-poster"
+            />
+            <MovieData>
+              <MovieTitle>{movie.title}</MovieTitle>
+              <MovieDescription>{movie.vote_average}</MovieDescription>
+            </MovieData>
+          </div>
+        </ContentContainer>
       ))}
     </SearchBackground>
   );

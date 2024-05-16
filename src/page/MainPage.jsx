@@ -66,6 +66,7 @@ const MainPage = () => {
             type="text"
             placeholder="영화 제목을 입력해주세요"
             onChange={handleChange}
+            value={keyword}
           />
           <SearchButton>검색</SearchButton>
         </SearchBarContainer>

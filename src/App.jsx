@@ -22,7 +22,7 @@ function App() {
           <Route path="/TopRated" element={<TopRatedPage />} />
           <Route path="/Upcoming" element={<UpComingPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/movie/:title" element={<MovieDetailPage />} />
+          <Route path="/movie/:id" element={<MovieDetailPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />

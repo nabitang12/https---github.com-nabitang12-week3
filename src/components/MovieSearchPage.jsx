@@ -1,8 +1,10 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import MovieSearchComponent from "./MovieSearchComponent";
 const MovieSearchPage = ({ keyword }) => {
   const [moviedata, setmoviedata] = useState([]);
+  const [loadingState,setLoadingState] = useState(true);
 
   useEffect(() => {
     const getMovieData = async () => {
@@ -23,6 +25,7 @@ const MovieSearchPage = ({ keyword }) => {
         );
         console.log(keyword);
         setmoviedata(res.data.results);
+        setLoadingState(false);
       } catch (error) {
         console.log(error);
       }
@@ -30,7 +33,9 @@ const MovieSearchPage = ({ keyword }) => {
     getMovieData();
   }, [keyword]);
 
-  return <MovieSearchComponent movieData={moviedata} />;
+  return (
+    loadingState?'기달려':<MovieSearchComponent movieData={moviedata} />
+  )
 };
 
 export default MovieSearchPage;

@@ -33,6 +33,7 @@ const MovieOverview = styled.div`
 
   ${ContentContainer}:hover & {
     display: block;
+    cursor:pointer;
   }
 `;
 
@@ -49,6 +50,7 @@ const MovieTitle = styled.div`
 `;
 const MovieDescription = styled.div`
   color: white;
+  font-size:10px;
 `;
 const MovieData = styled.div`
   color: white;
@@ -62,17 +64,8 @@ const MovieSearchComponent = ({ movieData }) => {
   const navigate = useNavigate();
 
   const handleClick = (movie) => {
-    navigate(`/movie/${movie.title}`, {
-      state: {
-        poster_path: movie.poster_path,
-        title: movie.title,
-        overview: movie.overview,
-        vote_average: movie.vote_average,
-        release_date: movie.release_date,
-        backdrop_path: movie.backdrop_path,
-      },
-    });
-  };
+    navigate(`/movie/${movie.id}`);
+  }
 
   return (
     <SearchBackground>

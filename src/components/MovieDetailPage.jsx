@@ -19,28 +19,50 @@ const Container = styled.div`
   color: white;
   background-color: rgba(26, 15, 114, 0.8);
 `;
-const PersonContainer = styled.div`
+const PersonBackground = styled.div`
+  display: flex;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: white;
   background-color: rgba(26, 15, 114, 0.8);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+const PersonContainer = styled.div`
+  width: 90%;
+  height: 80%;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 10px;
+`;
+const PersonTitle = styled.div`
+  font-size: 30px;
+  font-weight: bolder;
+  margin: 30px;
 `;
 const PosterImage = styled.img`
-  padding-left: 200px;
+  margin-left: 200px;
   width: 400px;
   height: 600px;
 `;
-
+const ActorContainer = styled.div``;
+const ActorImage = styled.img`
+  width: 70px;
+  height: 70px;
+  border-radius: 70%;
+  object-fit: cover;
+`;
+const ActorName = styled.div`
+  font-weight: bold;
+`;
 const Information = styled.div`
   line-height: 50px;
   display: flex;
   flex-direction: column;
-  padding-right: 200px;
-  padding-left: 100px;
-  margin-left: 50px;
+  margin-right: 200px;
+  margin-left: 100px;
 `;
 
 const MovieDescription = styled.div`
@@ -99,7 +121,7 @@ const MovieDetailPage = () => {
             },
           }
         );
-        setpersondata(personres.cast);
+        setpersondata(personres.data.cast);
       } catch (error) {
         console.log(error);
       }
@@ -123,7 +145,19 @@ const MovieDetailPage = () => {
           <MovieDescription>{moviedata.overview}</MovieDescription>
         </Information>
       </Container>
-      <PersonContainer>안녕</PersonContainer>
+      <PersonBackground>
+        <PersonTitle>출연진 및 제작진</PersonTitle>
+        <PersonContainer>
+          {persondata.map((person, index) => (
+            <ActorContainer key={index}>
+              <ActorImage
+                src={`https://image.tmdb.org/t/p/w200/${person.profile_path}`}
+              />
+              <ActorName>{person.name}</ActorName>
+            </ActorContainer>
+          ))}
+        </PersonContainer>
+      </PersonBackground>
     </Background>
   );
 };

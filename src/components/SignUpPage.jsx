@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 const Background = styled.div`
   width: 100%;
   height: 100%;
-  background-color: navy;
+  background-color: blue;
   display: flex;
   flex-direction: column;
 `;
@@ -14,6 +14,22 @@ const InputBackground = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 200px;
+`;
+const LoginBackground = styled.div`
+  margin: 30px;
+  display: flex;
+  color: white;
+  justify-content: center;
+`;
+const LoginTitle = styled.div`
+  font-weight: bold;
+  margin: 15px;
+`;
+const LoginLink = styled(Link)`
+  color: white;
+  margin: 15px;
+  font-weight: bolder;
+  text-decoration: none;
 `;
 
 const SignUpInput = styled.input`
@@ -52,6 +68,8 @@ const SignUpPage = () => {
   const [form, setForm] = useState({
     name: "",
     validname: false,
+    id: "",
+    validid: false,
     age: "",
     validage: false,
     email: "",
@@ -65,6 +83,7 @@ const SignUpPage = () => {
   const [errorMessage, setErrorMessage] = useState({
     Ename: "",
     Eage: "",
+    Eid: "",
     Eemail: "",
     Epassword: "",
     Epassconfirm: "",
@@ -85,6 +104,10 @@ const SignUpPage = () => {
       setForm((form) => ({ ...form, validname: false }));
     } else if (form.name.trim() === "") {
       setForm((form) => ({ ...form, validname: false }));
+      setErrorMessage((errorMessage) => ({
+        ...errorMessage,
+        Ename: "",
+      }));
     } else {
       setForm((form) => ({ ...form, validname: true }));
       setErrorMessage((errorMessage) => ({ ...errorMessage, Ename: "" }));
@@ -101,6 +124,10 @@ const SignUpPage = () => {
       setForm((form) => ({ ...form, validemail: false }));
     } else if (form.email.trim() === "") {
       setForm((form) => ({ ...form, validemail: false }));
+      setErrorMessage((errorMessage) => ({
+        ...errorMessage,
+        Eemail: "",
+      }));
     } else {
       setForm((form) => ({ ...form, validemail: true }));
       setErrorMessage((errorMessage) => ({ ...errorMessage, Eemail: "" }));
@@ -122,6 +149,7 @@ const SignUpPage = () => {
       setForm((form) => ({ ...form, validage: false }));
     } else if (form.age.trim() === "") {
       setForm((form) => ({ ...form, validage: false }));
+      setErrorMessage((errorMessage) => ({ ...errorMessage, Eage: "" }));
     } else {
       setForm((form) => ({ ...form, validage: true }));
       setErrorMessage((errorMessage) => ({ ...errorMessage, Eage: "" }));
@@ -138,6 +166,7 @@ const SignUpPage = () => {
       setForm((form) => ({ ...form, validpassword: false }));
     } else if (form.password.trim() === "") {
       setForm((form) => ({ ...form, validpassword: false }));
+      setErrorMessage((errorMessage) => ({ ...errorMessage, Epassword: "" }));
     } else {
       setForm((form) => ({ ...form, validpassword: true }));
       setErrorMessage((errorMessage) => ({ ...errorMessage, Epassword: "" }));
@@ -145,7 +174,10 @@ const SignUpPage = () => {
   }, [form.password]);
 
   useEffect(() => {
-    if (form.password !== form.passwordConfirm) {
+    if (
+      form.password !== form.passwordConfirm &&
+      form.passwordConfirm.trim() !== ""
+    ) {
       setErrorMessage((errorMessage) => ({
         ...errorMessage,
         Epassconfirm: "비밀번호가 일치하지 않아",
@@ -153,6 +185,10 @@ const SignUpPage = () => {
       setForm((form) => ({ ...form, validpasswordConfirm: false }));
     } else if (form.passwordConfirm.trim() === "") {
       setForm((form) => ({ ...form, validpasswordConfirm: false }));
+      setErrorMessage((errorMessage) => ({
+        ...errorMessage,
+        Epassconfirm: "",
+      }));
     } else {
       setForm((form) => ({ ...form, validpasswordConfirm: true }));
       setErrorMessage((errorMessage) => ({
@@ -197,6 +233,12 @@ const SignUpPage = () => {
         />
         <SignUpError>{errorMessage.Ename}</SignUpError>
         <SignUpInput
+          onchange={(e) => setForm({ ...form, id: e.target.value })}
+          value={form.id}
+          placeholder="아이디를 입력해주세요"
+        />
+        <SignUpError>{errorMessage.Eid}</SignUpError>
+        <SignUpInput
           onChange={(e) => setForm({ ...form, email: e.target.value })}
           value={form.email}
           placeholder="이메일을 입력해주세요"
@@ -237,6 +279,10 @@ const SignUpPage = () => {
           제출하기
         </SignUpButton>
       </InputBackground>
+      <LoginBackground>
+        <LoginTitle>이미 아이디가 있으신가요?</LoginTitle>
+        <LoginLink to="/login">로그인 페이지로 이동하기</LoginLink>
+      </LoginBackground>
     </Background>
   );
 };

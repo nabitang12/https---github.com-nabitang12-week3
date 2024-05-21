@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import { useEffect, useState } from "react";
+import styled, { useTheme } from "styled-components";
 
 const LoginContainer = styled.div`
   height: 100%;
@@ -8,7 +9,6 @@ const LoginContainer = styled.div`
 const LoginTitle = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
   color: white;
   font-weight: bold;
@@ -19,7 +19,6 @@ const InputContainer = styled.div`
   width: 100%;
   flex-direction: column;
   align-items: center;
-  text-align: center;
 `;
 
 const LoginInputBarContainer = styled.div`
@@ -33,9 +32,14 @@ const LoginInput = styled.input`
   width: 90%;
   padding: 10px;
   border-radius: 15px;
-  margin: 10px;
+  margin: 5px;
 `;
-
+const LoginError = styled.div`
+  width: 90%;
+  font-size: 15px;
+  color: red;
+  padding: 5px;
+`;
 const LoginButton = styled.div`
   cursor: pointer;
   background-color: white;
@@ -43,15 +47,80 @@ const LoginButton = styled.div`
   padding: 10px;
   border-radius: 15px;
   margin-top: 30px;
+  text-align: center;
 `;
 const LoginPage = () => {
+  const [form, setForm] = useState({
+    id: "",
+    validid: false,
+    password: "",
+    validpassword: false,
+  });
+
+  const [errorMessage, setErrorMessage] = useState({
+    Eid: "",
+    Epassword: "",
+  });
+
+  const passwordChecker =
+    /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{4,12}$/;
+  const idChecker = /[a-zA-Z0-9]/;
+
+  useEffect(() => {
+    const idresult = idChecker.test(form.id);
+    if (idresult === false || form.id.trim() == "") {
+      setErrorMessage((errorMessage) => ({
+        ...errorMessage,
+        Eid: "아이디를 입력해주세요",
+      }));
+    } else {
+      setForm((form) => ({ ...form, validid: true }));
+      setErrorMessage((errorMessage) => ({
+        ...errorMessage,
+        Eid: "",
+      }));
+    }
+  }, [form.id]);
+
+  useEffect(() => {
+    const passwordresult = passwordChecker.test(form.password);
+    if (passwordresult === false && form.password.trim() != "") {
+      setErrorMessage((errorMessage) => ({
+        ...errorMessage,
+        Epassword: "영어,숫자,특수문자 포함해",
+      }));
+      setForm((form) => ({ ...form, validpassword: false }));
+    } else if (form.password.trim() === "") {
+      setForm((form) => ({ ...form, validpassword: false }));
+      setErrorMessage((errorMessage) => ({
+        ...errorMessage,
+        Epassword: "비밀번호 입력해",
+      }));
+    } else {
+      setForm((form) => ({ ...form, validpassword: true }));
+      setErrorMessage((errorMessage) => ({ ...errorMessage, Epassword: "" }));
+    }
+  }, [form.password]);
+
   return (
     <LoginContainer>
       <LoginTitle>로그인 페이지</LoginTitle>
       <InputContainer>
         <LoginInputBarContainer>
-          <LoginInput type="text" placeholder="아이디" />
-          <LoginInput type="text" placeholder="비밀번호" />
+          <LoginInput
+            type="text"
+            onChange={(e) => setForm({ ...form, id: e.target.value })}
+            value={form.id}
+            placeholder="아이디"
+          />
+          <LoginError>{errorMessage.Eid}</LoginError>
+          <LoginInput
+            type="password"
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            value={form.password}
+            placeholder="비밀번호"
+          />
+          <LoginError>{errorMessage.Epassword}</LoginError>
           <LoginButton>로그인</LoginButton>
         </LoginInputBarContainer>
       </InputContainer>

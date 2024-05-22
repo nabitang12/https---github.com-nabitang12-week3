@@ -9,9 +9,8 @@ const Container = styled.div`
     display:flex;
     flex-direction:row;
     justify-content:space-between;
-    position:fixed;
+    position:sticky;
     z-index=1;
-    
 `;
 const LoginBackground = styled.div`
   color: white;

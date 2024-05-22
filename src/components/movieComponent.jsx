@@ -5,14 +5,13 @@ const MovieContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
-  padding: 100px 40px;
+  padding: 10px;
 `;
 
 const ContentContainer = styled.div`
   background-color: mediumpurple;
   padding: 10px;
   position: relative;
-
   &:hover .movie-poster-container {
     opacity: 0.3;
   }
@@ -44,7 +43,6 @@ const MovieData = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-bottom: 50px;
 `;
 
 const MovieComponent = ({ movieData }) => {

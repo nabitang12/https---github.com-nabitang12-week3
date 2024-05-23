@@ -102,6 +102,7 @@ const LoginPage = () => {
     }
   }, [form.password]);
 
+  const handleLogin = () => {};
   return (
     <LoginContainer>
       <LoginTitle>로그인 페이지</LoginTitle>
@@ -121,7 +122,7 @@ const LoginPage = () => {
             placeholder="비밀번호"
           />
           <LoginError>{errorMessage.Epassword}</LoginError>
-          <LoginButton>로그인</LoginButton>
+          <LoginButton onClick={handleLogin}>로그인</LoginButton>
         </LoginInputBarContainer>
       </InputContainer>
     </LoginContainer>

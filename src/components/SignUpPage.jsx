@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -88,11 +89,13 @@ const SignUpPage = () => {
     Epassword: "",
     Epassconfirm: "",
   });
+
   const nameChecker = /^[ㄱ-ㅎ가-힣a-zA-Z]+$/;
   const emailChecker = /^[a-z0-9\.\-_]+@([a-z0-9\-]+\.)+[a-z]{2,6}$/;
   const ageChecker = /^[0-9]+$/;
   const passwordChecker =
     /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{4,12}$/;
+  const idChecker = /[a-zA-Z0-9]/;
 
   useEffect(() => {
     const nameresult = nameChecker.test(form.name);
@@ -113,6 +116,23 @@ const SignUpPage = () => {
       setErrorMessage((errorMessage) => ({ ...errorMessage, Ename: "" }));
     }
   }, [form.name]);
+
+  useEffect(() => {
+    const idresult = idChecker.test(form.id);
+    if (idresult === false && form.id.trim() != "") {
+      setErrorMessage((errorMessage) => ({
+        ...errorMessage,
+        Eid: "아이디를 입력해주세요",
+      }));
+      setForm((form) => ({ ...form, validid: false }));
+    } else if (form.id.trim() === "") {
+      setForm((form) => ({ ...form, validid: false }));
+      setErrorMessage((errorMessage) => ({ ...errorMessage, Eid: "" }));
+    } else {
+      setForm((form) => ({ ...form, validid: true }));
+      setErrorMessage((errorMessage) => ({ ...errorMessage, Eid: "" }));
+    }
+  }, [form.id]);
 
   useEffect(() => {
     const emailresult = emailChecker.test(form.email);
@@ -204,18 +224,21 @@ const SignUpPage = () => {
       form.validemail &&
       form.validname &&
       form.validpassword &&
-      form.validpasswordConfirm
+      form.validpasswordConfirm &&
+      form.validid
     ) {
-      console.log(form);
-      alert("회원가입에 성공했어!");
       const user = {
-        submitname: form.name,
-        submitage: form.age,
-        submitemail: form.email,
-        submitpassword: form.password,
+        name: form.name,
+        email: form.email,
+        age: form.age,
+        username: form.id,
+        password: form.password,
+        passwordCheck: form.passwordConfirm,
       };
 
-      console.log("유저정보", user);
+      axios.post("http://localhost:8080/auth/signup", user);
+      console.log("유저정보", form);
+      alert("회원가입에 성공했어!");
       navigate("/login");
     } else {
       alert("회원가입 안돼 ㅋㅋ");
@@ -233,7 +256,7 @@ const SignUpPage = () => {
         />
         <SignUpError>{errorMessage.Ename}</SignUpError>
         <SignUpInput
-          onchange={(e) => setForm({ ...form, id: e.target.value })}
+          onChange={(e) => setForm({ ...form, id: e.target.value })}
           value={form.id}
           placeholder="아이디를 입력해주세요"
         />
@@ -273,7 +296,8 @@ const SignUpPage = () => {
             form.validemail &&
             form.validname &&
             form.validpassword &&
-            form.validpasswordConfirm
+            form.validpasswordConfirm &&
+            form.validid
           }
         >
           제출하기

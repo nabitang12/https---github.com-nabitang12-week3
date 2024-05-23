@@ -218,7 +218,7 @@ const SignUpPage = () => {
     }
   }, [form.passwordConfirm]);
 
-  const SignUpClick = () => {
+  const SignUpClick = async () => {
     if (
       form.validage &&
       form.validemail &&
@@ -236,9 +236,14 @@ const SignUpPage = () => {
         passwordCheck: form.passwordConfirm,
       };
 
-      axios.post("http://localhost:8080/auth/signup", user);
+      try {
+        const res = await axios.post("http://localhost:8080/auth/signup", user);
+      } catch (error) {
+        console.log(error);
+      }
       console.log("유저정보", form);
       alert("회원가입에 성공했어!");
+      set;
       navigate("/login");
     } else {
       alert("회원가입 안돼 ㅋㅋ");

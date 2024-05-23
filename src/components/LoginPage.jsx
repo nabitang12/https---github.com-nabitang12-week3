@@ -1,4 +1,6 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 
 const LoginContainer = styled.div`
@@ -50,6 +52,7 @@ const LoginButton = styled.div`
   text-align: center;
 `;
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     id: "",
     validid: false,
@@ -102,7 +105,33 @@ const LoginPage = () => {
     }
   }, [form.password]);
 
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    if (form.validid && form.validpassword) {
+      const user = {
+        username: form.id,
+        password: form.password,
+      };
+      const request = async () => {
+        try {
+          const res = await axios.post(
+            "http://localhost:8080/auth/login",
+            user
+          );
+          const token = res.data.token;
+          localStorage.setItem("token", token);
+          console.log(localStorage.getItem("token"));
+          alert("로그인 성공했어!");
+          navigate("/");
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      request();
+    } else {
+      alert("로그인 안돼 ㅋㅋ");
+    }
+  };
+
   return (
     <LoginContainer>
       <LoginTitle>로그인 페이지</LoginTitle>

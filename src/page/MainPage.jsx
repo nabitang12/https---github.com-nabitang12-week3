@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MovieSearchPage from "../components/MovieSearchPage";
 import Debounce from "../components/Debounce";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   height: 100%;
@@ -27,7 +28,7 @@ const FindContainer = styled.div`
   flex-direction: column;
   background-color: navy;
   color: white;
-  font-size: 30px;
+  font-size: 2em;
   font-weight: bolder;
 `;
 const SearchBarContainer = styled.div`
@@ -56,28 +57,30 @@ const MainPage = () => {
   const handleChange = (event) => {
     setkeyword(event.target.value);
   };
+
   useEffect(() => {
-    if (localStorage.getItem("value") == 1) {
-      setloginStatus(true);
-    } else {
+    const token = localStorage.getItem("token");
+    if (token == null) {
       setloginStatus(false);
+    } else {
+      setloginStatus(true);
     }
   }, []);
 
   return (
     <Container>
-      <WelcomeContainer>
-        {localStorage.getItem("username")}님 환영합니다!
-      </WelcomeContainer>
+      {loginStatus ? (
+        <WelcomeContainer>
+          {localStorage.getItem("username")}님 환영합니다!
+        </WelcomeContainer>
+      ) : (
+        <WelcomeContainer>환영합니다!</WelcomeContainer>
+      )}
+
       <FindContainer>
         <p>Find Your movies !</p>
         <SearchBarContainer>
-          <SearchInput
-            type="text"
-            placeholder="영화 제목을 입력해주세요"
-            onChange={handleChange}
-            value={keyword}
-          />
+          <SearchInput type="text" onChange={handleChange} value={keyword} />
           <SearchButton>검색</SearchButton>
         </SearchBarContainer>
         {debouncedkeyword !== "" ? (

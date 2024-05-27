@@ -34,8 +34,8 @@ const LoginLink = styled(Link)`
 `;
 
 const SignUpInput = styled.input`
-  width: 500px;
-  height: 45px;
+  width: 30em;
+  height: 3.5em;
   border: 0;
   border-radius: 30px;
   padding-left: 20px;

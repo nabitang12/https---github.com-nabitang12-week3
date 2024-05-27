@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Container = styled.div`
@@ -45,7 +45,7 @@ const StyleLink = styled(Link)`
 const Header = () => {
   const [isLoggedin, setIsLoggedin] = useState(false);
   const location = useLocation();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedin(!!token); // Set isLoggedin to true if token exists, false otherwise
@@ -56,10 +56,10 @@ const Header = () => {
       localStorage.removeItem("token");
       localStorage.removeItem("username");
       setIsLoggedin(false);
+      navigate("/");
     } else {
-      localStorage.setItem("token", "your_token_here");
-      localStorage.setItem("username", "1");
       setIsLoggedin(true);
+      navigate("/");
     }
   };
 

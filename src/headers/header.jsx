@@ -46,10 +46,6 @@ const Header = () => {
   const [isLoggedin, setIsLoggedin] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLoggedin(!!token); // Set isLoggedin to true if token exists, false otherwise
-  }, []); // Empty dependency array ensures this runs only once when the component mounts
 
   const handleLogin = () => {
     if (isLoggedin) {

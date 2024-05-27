@@ -243,7 +243,6 @@ const SignUpPage = () => {
       }
       console.log("유저정보", form);
       alert("회원가입에 성공했어!");
-      set;
       navigate("/login");
     } else {
       alert("회원가입 안돼 ㅋㅋ");

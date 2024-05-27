@@ -54,9 +54,11 @@ const Header = () => {
   const handleLogin = () => {
     if (isLoggedin) {
       localStorage.removeItem("token");
+      localStorage.removeItem("username");
       setIsLoggedin(false);
     } else {
       localStorage.setItem("token", "your_token_here");
+      localStorage.setItem("username", "1");
       setIsLoggedin(true);
     }
   };
@@ -68,9 +70,11 @@ const Header = () => {
       </LeftContainer>
       <RightContainer>
         <LoginBackground>
-          <StyleLink to="/signup" active={location.pathname == "/signup"}>
-            회원가입
-          </StyleLink>
+          {isLoggedin ? null : (
+            <StyleLink to="/signup" active={location.pathname == "/signup"}>
+              회원가입
+            </StyleLink>
+          )}
         </LoginBackground>
 
         <LoginBackground>

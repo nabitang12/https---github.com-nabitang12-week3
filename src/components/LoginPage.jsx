@@ -118,8 +118,11 @@ const LoginPage = () => {
             user
           );
           const token = res.data.token;
+          const username = res.data.username;
           localStorage.setItem("token", token);
+          localStorage.setItem("username", username);
           console.log(localStorage.getItem("token"));
+          console.log(localStorage.getItem("username"));
           alert("로그인 성공했어!");
           navigate("/");
         } catch (error) {

@@ -10,7 +10,7 @@ const WelcomeContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 15%;
+  height: 30%;
   width: 100%;
   background-color: black;
   color: white;
@@ -20,7 +20,7 @@ const WelcomeContainer = styled.div`
 
 const FindContainer = styled.div`
   width: 100%;
-  height: 85%;
+  height: 70%;
   display: flex;
   text-align: center;
   padding-top: 50px;
@@ -50,15 +50,25 @@ const SearchButton = styled.div`
 
 const MainPage = () => {
   const [keyword, setkeyword] = useState("");
+  const [loginStatus, setloginStatus] = useState(false);
   const debouncedkeyword = Debounce(keyword, 1000);
 
   const handleChange = (event) => {
     setkeyword(event.target.value);
   };
+  useEffect(() => {
+    if (localStorage.getItem("value") == 1) {
+      setloginStatus(true);
+    } else {
+      setloginStatus(false);
+    }
+  }, []);
 
   return (
     <Container>
-      <WelcomeContainer></WelcomeContainer>
+      <WelcomeContainer>
+        {localStorage.getItem("username")}님 환영합니다!
+      </WelcomeContainer>
       <FindContainer>
         <p>Find Your movies !</p>
         <SearchBarContainer>

@@ -20,6 +20,8 @@ const LoadingBackground = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  background-color: navy;
 `;
 
 const NowPlayingPage = () => {
@@ -43,31 +45,34 @@ const NowPlayingPage = () => {
           },
         }
       );
+      setLoadingState(false);
       setmoviedata([...moviedata, ...res.data.results]);
       setPage((page) => page + 1);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     if (inView) {
       console.log(inView, "무한 스크롤 요청");
-      setLoadingState(false);
       getMovieData();
+      setLoadingState(false);
     }
   }, [inView]);
+
+  if (loadingState) {
+    return (
+      <LoadingBackground>
+        <ClipLoader color="#E50915" loading={loadingState} size={150} />
+      </LoadingBackground>
+    );
+  }
 
   return (
     <Background>
       <LoadingBody>
-        {loadingState ? (
-          <LoadingBackground>
-            <ClipLoader color="#E50915" loading={loadingState} size={150} />
-          </LoadingBackground>
-        ) : (
-          <MovieComponent movieData={moviedata} />
-        )}
-        ;
+        {loadingState ? null : <MovieComponent movieData={moviedata} />};
       </LoadingBody>
       <div ref={ref}>안녕</div>
     </Background>

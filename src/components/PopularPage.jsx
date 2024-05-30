@@ -9,8 +9,6 @@ const Background = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-const LoadingBody = styled.div`
   background-color: navy;
 `;
 
@@ -18,6 +16,8 @@ const LoadingBackground = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  background-color: navy;
 `;
 
 const PopularPage = () => {
@@ -26,9 +26,11 @@ const PopularPage = () => {
   const [currentPage, setcurrentPage] = useState(1);
   const plusPage = () => {
     setcurrentPage(currentPage + 1);
+    setLoadingState(true);
   };
   const minusPage = () => {
     setcurrentPage(currentPage - 1);
+    setLoadingState(true);
   };
   useEffect(() => {
     const getMovieData = async () => {
@@ -55,22 +57,22 @@ const PopularPage = () => {
     getMovieData();
   });
 
+  if (loadingState) {
+    return (
+      <LoadingBackground>
+        <ClipLoader color="#E50915" loading={loadingState} size={150} />
+      </LoadingBackground>
+    );
+  }
+
   return (
     <Background>
-      <LoadingBody>
-        {loadingState ? (
-          <LoadingBackground>
-            <ClipLoader color="#E50915" loading={loadingState} size={150} />
-          </LoadingBackground>
-        ) : (
-          <MovieComponent movieData={moviedata} />
-        )}
-        ;
-      </LoadingBody>
+      {loadingState ? null : <MovieComponent movieData={moviedata} />}
       <Pagination
         minusPage={minusPage}
         plusPage={plusPage}
         currentPage={currentPage}
+        loadingState={loadingState}
       />
     </Background>
   );

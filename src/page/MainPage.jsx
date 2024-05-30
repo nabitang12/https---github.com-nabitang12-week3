@@ -65,7 +65,7 @@ const MainPage = () => {
     } else {
       setloginStatus(true);
     }
-  }, []);
+  });
 
   return (
     <Container>

@@ -45,14 +45,12 @@ const NowPlayingPage = () => {
           },
         }
       );
-      setLoadingState(false);
       setmoviedata([...moviedata, ...res.data.results]);
       setPage((page) => page + 1);
     } catch (error) {
       console.log(error);
     }
   };
-
   useEffect(() => {
     if (inView) {
       console.log(inView, "무한 스크롤 요청");
@@ -65,6 +63,7 @@ const NowPlayingPage = () => {
     return (
       <LoadingBackground>
         <ClipLoader color="#E50915" loading={loadingState} size={150} />
+        <div ref={ref}></div>
       </LoadingBackground>
     );
   }

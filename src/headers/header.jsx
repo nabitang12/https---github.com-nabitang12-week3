@@ -12,6 +12,7 @@ const Container = styled.div`
   position: sticky;
   z-index: 1;
 `;
+
 const LoginBackground = styled.div`
   color: white;
   cursor: pointer;
@@ -20,6 +21,7 @@ const LoginBackground = styled.div`
     transition-duration: 0.5s;
   }
 `;
+
 const LeftContainer = styled.div`
   display: flex;
   align-items: center;
@@ -29,6 +31,9 @@ const RightContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  @media screen and (max-width: 800px) {
+    background-color: green;
+  }
 `;
 
 const StyleLink = styled(Link)`

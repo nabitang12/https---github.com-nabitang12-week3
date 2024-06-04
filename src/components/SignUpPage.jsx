@@ -4,8 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 const Background = styled.div`
   width: 100%;
-  height: 100%;
-  background-color: blue;
+  background-color: #a6a6e0;
   display: flex;
   flex-direction: column;
 `;

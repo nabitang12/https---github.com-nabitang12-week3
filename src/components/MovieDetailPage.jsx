@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { ClipLoader } from "react-spinners";
 const Background = styled.div`
   width: 100%;
   height: 100%;
@@ -9,7 +10,14 @@ const Background = styled.div`
   background-size: cover;
   background-position: center;
 `;
-
+const LoadingBackground = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: navy;
+`;
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -22,7 +30,6 @@ const Container = styled.div`
 const PersonBackground = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
   color: white;
   background-color: rgba(26, 15, 114, 0.8);
   justify-content: center;
@@ -44,13 +51,13 @@ const PersonTitle = styled.div`
 `;
 const PosterImage = styled.img`
   margin-left: 200px;
-  width: 400px;
-  height: 600px;
+  width: 50%;
+  height: 50%;
 `;
 const ActorContainer = styled.div``;
 const ActorImage = styled.img`
-  width: 70px;
-  height: 70px;
+  width: 60%;
+  height: 60%;
   border-radius: 70%;
   object-fit: cover;
 `;
@@ -76,7 +83,7 @@ const MovieOverview = styled.div`
 const MovieDetailPage = () => {
   const [moviedata, setmoviedata] = useState({});
   const [persondata, setpersondata] = useState([]);
-
+  const [loadingState, setLoadingState] = useState(true);
   const { id } = useParams();
   const calScore = (vote_average) => {
     const stars = "⭐️".repeat(Math.floor(vote_average));
@@ -103,10 +110,7 @@ const MovieDetailPage = () => {
         console.log(error);
       }
     };
-    getMovieDetailData(parseInt(id));
-  }, [id]);
 
-  useEffect(() => {
     const getPersonData = async (id) => {
       try {
         const personres = await axios.get(
@@ -126,39 +130,63 @@ const MovieDetailPage = () => {
         console.log(error);
       }
     };
+    setLoadingState(false);
     getPersonData(parseInt(id));
+    getMovieDetailData(parseInt(id));
   }, [id]);
 
+  const handleOverview = () => {
+    if (moviedata.overview === "") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
-    <Background
-      background={`https://image.tmdb.org/t/p/w1280/${moviedata.backdrop_path}`}
-    >
-      <Container>
-        <PosterImage
-          src={`https://image.tmdb.org/t/p/w500/${moviedata.poster_path}`}
-        />
-        <Information>
-          <MovieOverview>{moviedata.title}</MovieOverview>
-          <MovieOverview>평점 {calScore(moviedata.vote_average)}</MovieOverview>
-          <MovieOverview>개봉일 {moviedata.release_date}</MovieOverview>
-          <MovieOverview>줄거리</MovieOverview>
-          <MovieDescription>{moviedata.overview}</MovieDescription>
-        </Information>
-      </Container>
-      <PersonBackground>
-        <PersonTitle>출연진 및 제작진</PersonTitle>
-        <PersonContainer>
-          {persondata.map((person, index) => (
-            <ActorContainer key={index}>
-              <ActorImage
-                src={`https://image.tmdb.org/t/p/w200/${person.profile_path}`}
-              />
-              <ActorName>{person.name}</ActorName>
-            </ActorContainer>
-          ))}
-        </PersonContainer>
-      </PersonBackground>
-    </Background>
+    <>
+      {loadingState ? (
+        <LoadingBackground>
+          <ClipLoader color="#E50915" loading={loadingState} size={150} />
+        </LoadingBackground>
+      ) : (
+        <Background
+          background={`https://image.tmdb.org/t/p/w1280/${moviedata.backdrop_path}`}
+        >
+          <Container>
+            <PosterImage
+              src={`https://image.tmdb.org/t/p/w500/${moviedata.poster_path}`}
+            />
+            <Information>
+              <MovieOverview>{moviedata.title}</MovieOverview>
+              <MovieOverview>
+                평점 {calScore(moviedata.vote_average)}
+              </MovieOverview>
+              <MovieOverview>개봉일 {moviedata.release_date}</MovieOverview>
+              <MovieOverview>줄거리</MovieOverview>
+              <MovieDescription>
+                {handleOverview
+                  ? "TMDB에서 제공하는 API에 상세 줄거리 정보가 없습니다."
+                  : moviedata.overview}
+              </MovieDescription>
+            </Information>
+          </Container>
+          <PersonBackground>
+            <PersonTitle>출연진 및 제작진</PersonTitle>
+            <PersonContainer>
+              {persondata.map((person, index) => (
+                <ActorContainer key={index}>
+                  <ActorImage
+                    src={`https://image.tmdb.org/t/p/w200/${person.profile_path}`}
+                  />
+                  <ActorName>{person.name}</ActorName>
+                </ActorContainer>
+              ))}
+            </PersonContainer>
+          </PersonBackground>
+        </Background>
+      )}
+    </>
   );
 };
 

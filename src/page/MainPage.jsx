@@ -5,7 +5,7 @@ import Debounce from "../components/Debounce";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
-  height: 100%;
+  height: 120%;
 `;
 const WelcomeContainer = styled.div`
   display: flex;
@@ -21,7 +21,7 @@ const WelcomeContainer = styled.div`
 
 const FindContainer = styled.div`
   width: 100%;
-  height: 70%;
+  height: 90%;
   display: flex;
   text-align: center;
   padding-top: 50px;
@@ -36,6 +36,10 @@ const SearchBarContainer = styled.div`
   display: flex;
   align-items: center;
   margin: 20px auto;
+`;
+const SearchContainer = styled.div`
+  margin: 20px;
+  height: 70%;
 `;
 const SearchInput = styled.input`
   width: 90%;
@@ -84,9 +88,11 @@ const MainPage = () => {
           <SearchInput type="text" onChange={handleChange} value={keyword} />
           <SearchButton>검색</SearchButton>
         </SearchBarContainer>
-        {debouncedkeyword !== "" ? (
-          <MovieSearchPage keyword={debouncedkeyword} />
-        ) : null}
+        <SearchContainer>
+          {debouncedkeyword !== "" ? (
+            <MovieSearchPage keyword={debouncedkeyword} />
+          ) : null}
+        </SearchContainer>
       </FindContainer>
     </Container>
   );

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const SearchBackground = styled.div`
-  background-color: black;
+  background-color: #353537;
   width: 70%;
   height: 70%;
   display: grid;
@@ -16,7 +16,7 @@ const SearchBackground = styled.div`
 const ContentContainer = styled.div`
   background-color: mediumpurple;
   position: relative;
-
+  border-radius: 10px;
   &:hover .movie-poster-container {
     opacity: 0.3;
   }
@@ -33,7 +33,7 @@ const MovieOverview = styled.div`
 
   ${ContentContainer}:hover & {
     display: block;
-    cursor:pointer;
+    cursor: pointer;
   }
 `;
 
@@ -50,7 +50,7 @@ const MovieTitle = styled.div`
 `;
 const MovieDescription = styled.div`
   color: white;
-  font-size:10px;
+  font-size: 10px;
 `;
 const MovieData = styled.div`
   color: white;
@@ -65,7 +65,7 @@ const MovieSearchComponent = ({ movieData }) => {
 
   const handleClick = (movie) => {
     navigate(`/movie/${movie.id}`);
-  }
+  };
 
   return (
     <SearchBackground>

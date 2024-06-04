@@ -77,15 +77,27 @@ const Header = () => {
           {isLoggedin ? (
             <div onClick={handleLogin}>로그아웃</div>
           ) : (
-            <StyleLink to="/login" onClick={handleLogin}>
+            <StyleLink
+              to="/login"
+              onClick={handleLogin}
+              active={location.pathname == "/login"}
+            >
               로그인
             </StyleLink>
           )}
         </LoginBackground>
-        <StyleLink to="/Popular">Popular</StyleLink>
-        <StyleLink to="/nowPlaying">Now Playing</StyleLink>
-        <StyleLink to="/TopRated">Top Rated</StyleLink>
-        <StyleLink to="/Upcoming">Upcoming</StyleLink>
+        <StyleLink to="/Popular" active={location.pathname == "/Popular"}>
+          Popular
+        </StyleLink>
+        <StyleLink to="/nowPlaying" active={location.pathname == "/nowPlaying"}>
+          Now Playing
+        </StyleLink>
+        <StyleLink to="/TopRated" active={location.pathname == "/TopRated"}>
+          Top Rated
+        </StyleLink>
+        <StyleLink to="/Upcoming" active={location.pathname == "/Upcoming"}>
+          Upcoming
+        </StyleLink>
       </RightContainer>
     </Container>
   );

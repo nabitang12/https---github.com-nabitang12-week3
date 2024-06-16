@@ -3,6 +3,7 @@ import styled from "styled-components";
 import MovieSearchPage from "../components/MovieSearchPage";
 import Debounce from "../components/Debounce";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 
 const Container = styled.div`
   height: 120%;

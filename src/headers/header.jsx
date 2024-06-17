@@ -6,7 +6,7 @@ import Sidebar from "../components/Sidebar";
 
 const Container = styled.div`
   width: 100%;
-  height: 8%;
+  height: 5%;
   background-color: navy;
   display: flex;
   flex-direction: row;
@@ -14,7 +14,7 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 999;
 `;
 
 const LoginBackground = styled.div`
@@ -43,7 +43,7 @@ const RightContainer = styled.div`
 const MenuContainer = styled.div`
   display: none;
   align-items: center;
-  margin: 15px;
+  padding: 15px;
   cursor: pointer;
   @media screen and (max-width: 763px) {
     display: flex;

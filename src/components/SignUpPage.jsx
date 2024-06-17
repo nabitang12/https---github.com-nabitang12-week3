@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 const Background = styled.div`
   width: 100%;
+  height: 100%;
   background-color: #a6a6e0;
   display: flex;
   flex-direction: column;
@@ -20,9 +21,12 @@ const LoginBackground = styled.div`
   display: flex;
   color: white;
   justify-content: center;
+  align-items: center;
+  @media screen and (max-width: 763px) {
+    flex-direction: column;
+  }
 `;
 const LoginTitle = styled.div`
-  font-weight: bold;
   margin: 15px;
 `;
 const LoginLink = styled(Link)`
@@ -33,7 +37,7 @@ const LoginLink = styled(Link)`
 `;
 
 const SignUpInput = styled.input`
-  width: 30em;
+  width: 80%;
   height: 3.5em;
   border: 0;
   border-radius: 30px;
@@ -49,7 +53,7 @@ const SignUpTitle = styled.div`
 `;
 
 const SignUpButton = styled.button`
-  width: 525px;
+  width: 80%;
   height: 45px;
   border: 0;
   background-color: ${(props) => (props.$allValid ? "0074ff" : "grey")};

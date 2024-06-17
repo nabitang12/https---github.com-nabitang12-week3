@@ -5,9 +5,12 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   background-color: purple;
-  display: fixed;
+  display: flex;
   flex-direction: column;
+  position: fixed;
+  top: 5%;
   gap: 5px;
+  opacity: 0.9;
   z-index: 1;
 `;
 

@@ -7,8 +7,13 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   background: ${({ background }) => `url(${background})`};
+  background-color: rgba(26, 15, 114, 0.8);
   background-size: cover;
   background-position: center;
+
+  @media screen and (max-width: 763px) {
+    background: rgba(26, 15, 114, 0.8);
+  }
 `;
 const LoadingBackground = styled.div`
   width: 100%;
@@ -22,10 +27,17 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   color: white;
   background-color: rgba(26, 15, 114, 0.8);
+  @media screen and (max-width: 763px) {
+    padding-top: 10%;
+    justify-content: start;
+    flex-direction: column;
+    align-items: left;
+  }
 `;
 const PersonBackground = styled.div`
   display: flex;
@@ -49,10 +61,29 @@ const PersonTitle = styled.div`
   font-weight: bolder;
   margin: 30px;
 `;
+const PosterContainer = styled.div`
+  width: 100%;
+  height: 75%;
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: 763px) {
+    align-items: start;
+    margin-left: 5%;
+    margin-top: 5%;
+    margin-bottom: 10%;
+    height: 25%;
+  }
+`;
 const PosterImage = styled.img`
-  margin-left: 200px;
-  width: 50%;
-  height: 50%;
+  margin-left: 30%;
+  width: 80%;
+  height: 80%;
+  @media screen and (max-width: 763px) {
+    margin-left: 0;
+
+    width: 35%;
+    height: 100%;
+  }
 `;
 const ActorContainer = styled.div``;
 const ActorImage = styled.img`
@@ -65,11 +96,17 @@ const ActorName = styled.div`
   font-weight: bold;
 `;
 const Information = styled.div`
+  width: 100%;
   line-height: 50px;
   display: flex;
+  align-items: left;
   flex-direction: column;
-  margin-right: 200px;
-  margin-left: 100px;
+  padding-left: 5%;
+  @media screen and (max-width: 763px) {
+    padding-left: 5%;
+    justify-content: start;
+    align-items: left;
+  }
 `;
 
 const MovieDescription = styled.div`
@@ -154,9 +191,11 @@ const MovieDetailPage = () => {
           background={`https://image.tmdb.org/t/p/w1280/${moviedata.backdrop_path}`}
         >
           <Container>
-            <PosterImage
-              src={`https://image.tmdb.org/t/p/w500/${moviedata.poster_path}`}
-            />
+            <PosterContainer>
+              <PosterImage
+                src={`https://image.tmdb.org/t/p/w500/${moviedata.poster_path}`}
+              />
+            </PosterContainer>
             <Information>
               <MovieOverview>{moviedata.title}</MovieOverview>
               <MovieOverview>

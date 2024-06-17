@@ -6,10 +6,12 @@ import styled from "styled-components";
 import Pagination from "./Pagination";
 
 const Background = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: navy;
+  padding-top: 10%;
 `;
 
 const LoadingBackground = styled.div`

@@ -2,19 +2,6 @@ import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: purple;
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: 5%;
-  gap: 5px;
-  opacity: 0.9;
-  z-index: 1;
-`;
-
 const StyleLink = styled(Link)`
   text-decoration: none;
   padding: 15px;
@@ -43,7 +30,7 @@ const Sidebar = () => {
   };
 
   return (
-    <Container>
+    <>
       {isLoggedin ? null : (
         <StyleLink to="/signup" active={location.pathname == "/signup"}>
           회원가입
@@ -72,7 +59,7 @@ const Sidebar = () => {
       <StyleLink to="/Upcoming" active={location.pathname == "/Upcoming"}>
         Upcoming
       </StyleLink>
-    </Container>
+    </>
   );
 };
 

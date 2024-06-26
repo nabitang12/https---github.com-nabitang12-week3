@@ -26,7 +26,9 @@ const Box = styled(motion.div)`
   position: fixed;
   gap: 5px;
   opacity: 0.9;
+  top: 5%;
   z-index: 1;
+  left: 100%;
 `;
 const LoginBackground = styled.div`
   color: white;
@@ -92,6 +94,10 @@ const Header = () => {
       navigate("/");
     }
   };
+  const variants = {
+    open: { x: "100%" },
+    closed: { x: "-100%" },
+  };
   return (
     <>
       <Container>
@@ -146,15 +152,14 @@ const Header = () => {
         </MenuContainer>
       </Container>
 
-      {isOpen ? null : (
-        <Box
-          initial="hidden"
-          animate={{ x: "-70%" }}
-          transition={{ ease: "easeOut", duration: 0.5 }}
-        >
-          <Sidebar isOpen={isOpen} />
-        </Box>
-      )}
+      <Box
+        initial="hidden"
+        animate={isOpen ? "open" : "closed"}
+        transition={{ ease: "easeOut", duration: 1 }}
+        variants={variants}
+      >
+        <Sidebar isOpen={isOpen} />
+      </Box>
     </>
   );
 };

@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Component, useEffect, useState } from "react";
 import { FiAlignJustify } from "react-icons/fi";
 import Sidebar from "../components/Sidebar";
+import { motion } from "framer-motion";
 
 const Container = styled.div`
   width: 100%;
@@ -16,7 +17,17 @@ const Container = styled.div`
   left: 0;
   z-index: 999;
 `;
-
+const Box = styled(motion.div)`
+  width: 100%;
+  height: 100%;
+  background-color: purple;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  gap: 5px;
+  opacity: 0.9;
+  z-index: 1;
+`;
 const LoginBackground = styled.div`
   color: white;
   cursor: pointer;
@@ -81,7 +92,6 @@ const Header = () => {
       navigate("/");
     }
   };
-
   return (
     <>
       <Container>
@@ -136,7 +146,15 @@ const Header = () => {
         </MenuContainer>
       </Container>
 
-      {isOpen ? <Sidebar /> : null}
+      {isOpen ? null : (
+        <Box
+          initial="hidden"
+          animate={{ x: "-70%" }}
+          transition={{ ease: "easeOut", duration: 0.5 }}
+        >
+          <Sidebar isOpen={isOpen} />
+        </Box>
+      )}
     </>
   );
 };

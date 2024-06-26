@@ -58,7 +58,6 @@ const MainPage = () => {
   const [keyword, setkeyword] = useState("");
   const [loginStatus, setloginStatus] = useState(false);
   const debouncedkeyword = Debounce(keyword, 1000);
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setkeyword(event.target.value);

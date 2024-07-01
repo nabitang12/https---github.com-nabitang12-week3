@@ -79,7 +79,7 @@ const StyleLink = styled(Link)`
 `;
 const Header = () => {
   const [isLoggedin, setIsLoggedin] = useState(false);
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -151,7 +151,6 @@ const Header = () => {
           <Icon size={30} />
         </MenuContainer>
       </Container>
-
       <Box
         initial="hidden"
         animate={isOpen ? "open" : "closed"}
